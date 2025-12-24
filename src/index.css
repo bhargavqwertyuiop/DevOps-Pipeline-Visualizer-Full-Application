@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #root {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-devops-darker text-gray-100;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+    font-family: 'Fira Code', 'Courier New', monospace;
+  }
+}
+
+@layer components {
+  .terminal {
+    @apply bg-black text-green-400 font-mono text-sm p-4 rounded-lg overflow-x-auto;
+  }
+
+  .code-block {
+    @apply bg-devops-gray border border-devops-light-gray rounded-lg p-4 overflow-x-auto;
+  }
+
+  .pipeline-card {
+    @apply bg-devops-gray border-2 border-devops-light-gray rounded-lg p-6 
+           transition-all duration-300 hover:border-devops-blue hover:shadow-lg 
+           hover:shadow-devops-blue/20 cursor-pointer;
+  }
+
+  .pipeline-card.active {
+    @apply border-devops-blue shadow-lg shadow-devops-blue/30 bg-devops-light-gray;
+  }
+
+  .pipeline-card.success {
+    @apply border-devops-green;
+  }
+
+  .pipeline-card.failed {
+    @apply border-devops-red;
+  }
+
+  .pipeline-card.pending {
+    @apply border-devops-yellow opacity-60;
+  }
+}
+
