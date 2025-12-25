@@ -7,13 +7,13 @@ function IncidentDashboard() {
     const [selected, setSelected] = useState(incidents[0])
 
     return (
-        <div className="p-6 h-full flex flex-col">
+        <div className="p-4 sm:p-6 h-full flex flex-col">
             <div className="mb-6 flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-white">Incident Simulator & SRE Command Center</h2>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1 overflow-auto">
-                <div className="lg:col-span-1 bg-devops-dark border border-devops-light-gray rounded p-4 h-full overflow-y-auto">
+                <div className="lg:col-span-1 bg-devops-dark border border-devops-light-gray rounded p-4 overflow-y-auto min-h-[40vh] lg:min-h-0">
                     <h3 className="text-sm text-gray-300 mb-3">Available Incidents</h3>
                     <ul className="space-y-2">
                         {incidents.map(inc => (
