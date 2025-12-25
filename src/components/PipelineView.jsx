@@ -41,15 +41,15 @@ function PipelineView({ stages, selectedStage, onStageClick, pipelineStatus, onS
   }
 
   return (
-    <div className="p-6 flex-shrink-0 overflow-x-hidden">
+    <div className="p-4 sm:p-6 flex-shrink-0 overflow-x-auto">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-xl font-semibold text-white">Pipeline Flow</h2>
         <button
           onClick={runPipeline}
           disabled={isRunning}
           className={`px-6 py-2 rounded-lg font-medium transition-all ${isRunning
-              ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-              : 'bg-devops-blue text-white hover:bg-blue-600 hover:shadow-lg'
+            ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+            : 'bg-devops-blue text-white hover:bg-blue-600 hover:shadow-lg'
             }`}
         >
           {isRunning ? 'Running Pipeline...' : 'Run Pipeline'}
@@ -74,9 +74,7 @@ function PipelineView({ stages, selectedStage, onStageClick, pipelineStatus, onS
                 )}
                 <div
                   onClick={() => onStageClick(stage)}
-                  className={`pipeline-card ${selectedStage?.id === stage.id ? 'active' : ''
-                    } ${getStatusClass(stage.id)}`}
-                  style={{ minWidth: '160px', maxWidth: '160px' }}
+                  className={`pipeline-card w-40 sm:w-40 md:w-44 ${selectedStage?.id === stage.id ? 'active' : ''} ${getStatusClass(stage.id)}`}
                 >
                   <div className="text-center">
                     {stage.category && (
@@ -99,23 +97,23 @@ function PipelineView({ stages, selectedStage, onStageClick, pipelineStatus, onS
                   <div className="mx-1 flex items-center">
                     {/* Horizontal arrow on sm+, vertical arrow on mobile */}
                     <svg className={`w-8 h-1 hidden sm:block ${pipelineStatus[stage.id] === 'success'
-                        ? 'text-devops-green'
-                        : pipelineStatus[stage.id] === 'failed'
-                          ? 'text-devops-red'
-                          : pipelineStatus[stage.id] === 'pending'
-                            ? 'text-devops-yellow'
-                            : 'text-devops-light-gray'
+                      ? 'text-devops-green'
+                      : pipelineStatus[stage.id] === 'failed'
+                        ? 'text-devops-red'
+                        : pipelineStatus[stage.id] === 'pending'
+                          ? 'text-devops-yellow'
+                          : 'text-devops-light-gray'
                       }`} fill="currentColor" viewBox="0 0 100 10">
                       <polygon points="0,5 100,5 95,0 100,5 95,10" />
                     </svg>
 
                     <svg className={`w-1 h-8 block sm:hidden ${pipelineStatus[stage.id] === 'success'
-                        ? 'text-devops-green'
-                        : pipelineStatus[stage.id] === 'failed'
-                          ? 'text-devops-red'
-                          : pipelineStatus[stage.id] === 'pending'
-                            ? 'text-devops-yellow'
-                            : 'text-devops-light-gray'
+                      ? 'text-devops-green'
+                      : pipelineStatus[stage.id] === 'failed'
+                        ? 'text-devops-red'
+                        : pipelineStatus[stage.id] === 'pending'
+                          ? 'text-devops-yellow'
+                          : 'text-devops-light-gray'
                       }`} fill="currentColor" viewBox="0 0 10 100">
                       <polygon points="5,0 5,100 0,95 5,100 10,95" />
                     </svg>

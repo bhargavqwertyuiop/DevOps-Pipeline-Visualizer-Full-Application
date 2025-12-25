@@ -7,16 +7,19 @@
     box-sizing: border-box;
   }
 
-  html, body {
+  html,
+  body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
   }
 
   #root {
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    height: auto;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   body {
@@ -43,9 +46,7 @@
   }
 
   .pipeline-card {
-    @apply bg-devops-gray border-2 border-devops-light-gray rounded-lg p-6 
-           transition-all duration-300 hover:border-devops-blue hover:shadow-lg 
-           hover:shadow-devops-blue/20 cursor-pointer;
+    @apply bg-devops-gray border-2 border-devops-light-gray rounded-lg p-6 transition-all duration-300 hover:border-devops-blue hover:shadow-lg hover:shadow-devops-blue/20 cursor-pointer;
   }
 
   .pipeline-card.active {
@@ -64,4 +65,3 @@
     @apply border-devops-yellow opacity-60;
   }
 }
-

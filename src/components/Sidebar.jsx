@@ -49,13 +49,13 @@ function Sidebar({ stages, selectedStage, onStageClick, pipelineStatus, onAIClic
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => onAIClick && onAIClick()}
-                className="text-xs bg-devops-blue px-3 py-1 rounded-md text-white hover:opacity-90"
+                className="text-sm bg-devops-blue px-3 py-2 rounded-md text-white hover:opacity-90"
               >
                 AI Assistant
               </button>
               <button
                 onClick={() => typeof window !== 'undefined' && window.dispatchEvent(new CustomEvent('open-incidents'))}
-                className="text-xs bg-gray-700 px-3 py-1 rounded-md text-white hover:opacity-90"
+                className="text-sm bg-gray-700 px-3 py-2 rounded-md text-white hover:opacity-90"
               >
                 Incident Simulator
               </button>
@@ -89,7 +89,7 @@ function Sidebar({ stages, selectedStage, onStageClick, pipelineStatus, onAIClic
                         <li key={stage.id}>
                           <button
                             onClick={() => onStageClick(stage)}
-                            className={`w-full text-left px-4 py-2.5 rounded-lg transition-all duration-200 ${selectedStage?.id === stage.id
+                            className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${selectedStage?.id === stage.id
                               ? 'bg-devops-blue text-white shadow-lg'
                               : 'bg-devops-gray text-gray-300 hover:bg-devops-light-gray hover:text-white'
                               }`}
@@ -121,10 +121,26 @@ function Sidebar({ stages, selectedStage, onStageClick, pipelineStatus, onAIClic
       {mobileOpen && (
         <div className="md:hidden fixed inset-0 z-50 flex">
           <div className="fixed inset-0 bg-black/50" onClick={onCloseMobile}></div>
-          <div className="relative w-72 bg-devops-dark border-r border-devops-light-gray h-full overflow-y-auto p-4">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Pipeline Stages</h2>
-              <button onClick={onCloseMobile} className="text-sm text-gray-400">Close</button>
+          <div className="relative w-72 max-w-[85vw] bg-devops-dark border-r border-devops-light-gray h-full overflow-y-auto p-4">
+            <div className="mb-2">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-white">Pipeline Stages</h2>
+                <button onClick={onCloseMobile} className="text-sm text-gray-400 px-2 py-1">Close</button>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-2 mt-3">
+                <button
+                  onClick={() => { onAIClick && onAIClick(); }}
+                  className="flex-1 text-sm bg-devops-blue px-3 py-2 rounded-md text-white hover:opacity-90"
+                >
+                  AI Assistant
+                </button>
+                <button
+                  onClick={() => typeof window !== 'undefined' && window.dispatchEvent(new CustomEvent('open-incidents'))}
+                  className="flex-1 text-sm bg-gray-700 px-3 py-2 rounded-md text-white hover:opacity-90"
+                >
+                  Incident Simulator
+                </button>
+              </div>
             </div>
             <div className="space-y-3">
               {categories.map(({ category, stages: categoryStages }) => {
@@ -150,7 +166,7 @@ function Sidebar({ stages, selectedStage, onStageClick, pipelineStatus, onAIClic
                           <li key={stage.id}>
                             <button
                               onClick={() => { onStageClick(stage); onCloseMobile && onCloseMobile(); }}
-                              className={`w-full text-left px-4 py-2.5 rounded-lg transition-all duration-200 ${selectedStage?.id === stage.id
+                              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${selectedStage?.id === stage.id
                                 ? 'bg-devops-blue text-white shadow-lg'
                                 : 'bg-devops-gray text-gray-300 hover:bg-devops-light-gray hover:text-white'
                                 }`}

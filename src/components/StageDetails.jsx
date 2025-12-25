@@ -21,11 +21,11 @@ function StageDetails({ stage, pipelineStatus }) {
   const categoryColor = stage.category ? getCategoryColor(stage.category) : 'bg-gray-500/20 text-gray-400 border-gray-500/30'
 
   return (
-    <div className="p-6 bg-devops-dark border-t border-devops-light-gray flex-1 overflow-y-auto">
-      <div className="max-w-4xl mx-auto">
+    <div className="p-4 sm:p-6 bg-devops-dark border-t border-devops-light-gray flex-1 overflow-y-auto">
+      <div className="max-w-4xl mx-auto w-full px-2 sm:px-0">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
-            <h3 className="text-2xl font-bold text-white">{stage.name}</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-white">{stage.name}</h3>
             {stage.category && (
               <span className={`px-3 py-1 rounded-md text-xs font-semibold border ${categoryColor}`}>
                 {stage.category}
@@ -38,9 +38,8 @@ function StageDetails({ stage, pipelineStatus }) {
                 ⏱️ {stage.executionTime}s
               </span>
             )}
-            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-              statusColors[status] || 'bg-gray-600 text-white'
-            }`}>
+            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[status] || 'bg-gray-600 text-white'
+              }`}>
               {status.toUpperCase()}
             </span>
           </div>
@@ -57,7 +56,7 @@ function StageDetails({ stage, pipelineStatus }) {
         </div>
 
         <div className="mb-6">
-          <h4 className="text-lg font-semibold text-white mb-3">Tools Used</h4>
+          <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Tools Used</h4>
           <div className="flex flex-wrap gap-2">
             {stage.toolsUsed.map((tool, index) => (
               <span
@@ -72,8 +71,8 @@ function StageDetails({ stage, pipelineStatus }) {
 
         {stage.sampleCommands && stage.sampleCommands.length > 0 && (
           <div className="mb-6">
-            <h4 className="text-lg font-semibold text-white mb-3">Sample Commands</h4>
-            <div className="code-block">
+            <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Sample Commands</h4>
+            <div className="code-block overflow-auto">
               <pre className="text-gray-300">
                 {stage.sampleCommands.map((cmd, index) => (
                   <div key={index} className="mb-1">
@@ -87,8 +86,8 @@ function StageDetails({ stage, pipelineStatus }) {
 
         {stage.expectedOutput && (
           <div className="mb-6">
-            <h4 className="text-lg font-semibold text-white mb-3">Expected Output</h4>
-            <div className="code-block">
+            <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Expected Output</h4>
+            <div className="code-block overflow-auto">
               <pre className="text-gray-300 whitespace-pre-wrap">{stage.expectedOutput}</pre>
             </div>
           </div>
@@ -96,8 +95,8 @@ function StageDetails({ stage, pipelineStatus }) {
 
         {stage.sampleLogs && stage.sampleLogs.length > 0 && (
           <div className="mb-6">
-            <h4 className="text-lg font-semibold text-white mb-3">Sample Logs</h4>
-            <div className="terminal">
+            <h4 className="text-base sm:text-lg font-semibold text-white mb-3">Sample Logs</h4>
+            <div className="terminal overflow-auto">
               {stage.sampleLogs.map((log, index) => (
                 <div key={index} className="mb-1">
                   {log}
@@ -120,7 +119,7 @@ function StageDetails({ stage, pipelineStatus }) {
         {/* Security Impact Section */}
         {stage.securityImpact && (
           <div className="mb-6">
-            <h4 className="text-lg font-semibold text-white mb-3">🔒 Security Impact</h4>
+            <h4 className="text-base sm:text-lg font-semibold text-white mb-3">🔒 Security Impact</h4>
             <div className="bg-red-500/10 border border-red-500/30 p-4 rounded-lg">
               <p className="text-sm text-gray-300 leading-relaxed">{stage.securityImpact}</p>
             </div>
@@ -130,7 +129,7 @@ function StageDetails({ stage, pipelineStatus }) {
         {/* Interview Tips Section */}
         {stage.interviewTips && (
           <div className="mb-6">
-            <h4 className="text-lg font-semibold text-white mb-3">💡 Interview Tips</h4>
+            <h4 className="text-base sm:text-lg font-semibold text-white mb-3">💡 Interview Tips</h4>
             <div className="bg-devops-blue/10 border border-devops-blue/30 p-4 rounded-lg">
               <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">{stage.interviewTips}</p>
             </div>
