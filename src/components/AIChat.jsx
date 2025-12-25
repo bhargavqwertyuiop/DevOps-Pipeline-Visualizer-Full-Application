@@ -42,7 +42,8 @@ function AIChat({ onClose, stageContext }) {
     }
 
     return (
-        <div className="fixed right-6 top-20 w-96 h-[72vh] bg-devops-dark border border-devops-light-gray rounded-lg shadow-xl z-50 flex flex-col overflow-hidden">
+        <div className="fixed z-50 flex flex-col overflow-hidden bg-devops-dark border border-devops-light-gray rounded-lg shadow-xl
+                    bottom-4 left-4 right-4 h-[80vh] sm:inset-auto sm:right-6 sm:top-20 sm:w-96 sm:h-[72vh]">
             <div className="flex items-center justify-between p-3 border-b border-devops-light-gray">
                 <div className="flex items-center space-x-2">
                     <div className="w-9 h-9 bg-devops-blue/20 rounded flex items-center justify-center text-devops-blue font-bold">🤖</div>
@@ -60,11 +61,17 @@ function AIChat({ onClose, stageContext }) {
             </div>
 
             <div ref={containerRef} className="flex-1 p-3 overflow-y-auto space-y-3">
-                {messages.map((m, i) => (
-                    <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`${m.role === 'user' ? 'bg-devops-blue text-white' : 'bg-devops-gray text-gray-200'} px-3 py-2 rounded-md max-w-[78%] text-sm`}>{m.text}</div>
-                    </div>
-                ))}
+                {messages.map((m, i) => {
+                    const isUser = m.role === 'user'
+                    const isError = !isUser && typeof m.text === 'string' && m.text.startsWith('ERROR:')
+                    return (
+                        <div key={i} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
+                            <div className={`px-3 py-2 rounded-md max-w-[78%] text-sm ${isUser ? 'bg-devops-blue text-white' : (isError ? 'bg-red-700 text-white' : 'bg-devops-gray text-gray-200')}`}>
+                                <div className="whitespace-pre-wrap break-words">{m.text}</div>
+                            </div>
+                        </div>
+                    )
+                })}
                 {isThinking && (
                     <div className="text-sm text-gray-400">AI is thinking...</div>
                 )}

@@ -7,7 +7,7 @@ function PipelineView({ stages, selectedStage, onStageClick, pipelineStatus, onS
   const runPipeline = async () => {
     setIsRunning(true)
     const newStatus = {}
-    
+
     // Reset all statuses
     stages.forEach(stage => {
       newStatus[stage.id] = 'pending'
@@ -17,7 +17,7 @@ function PipelineView({ stages, selectedStage, onStageClick, pipelineStatus, onS
     // Simulate pipeline execution stage by stage
     for (let i = 0; i < stages.length; i++) {
       await new Promise(resolve => setTimeout(resolve, 1200))
-      
+
       // Randomly assign success/failure (90% success rate)
       const success = Math.random() > 0.1
       newStatus[stages[i].id] = success ? 'success' : 'failed'
@@ -47,38 +47,35 @@ function PipelineView({ stages, selectedStage, onStageClick, pipelineStatus, onS
         <button
           onClick={runPipeline}
           disabled={isRunning}
-          className={`px-6 py-2 rounded-lg font-medium transition-all ${
-            isRunning
+          className={`px-6 py-2 rounded-lg font-medium transition-all ${isRunning
               ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
               : 'bg-devops-blue text-white hover:bg-blue-600 hover:shadow-lg'
-          }`}
+            }`}
         >
           {isRunning ? 'Running Pipeline...' : 'Run Pipeline'}
         </button>
       </div>
 
       <div className="bg-devops-dark rounded-lg p-6 border border-devops-light-gray">
-        <div className="flex items-center overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-devops-light-gray scrollbar-track-devops-dark">
+        <div className="flex flex-col sm:flex-row items-center overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-devops-light-gray scrollbar-track-devops-dark">
           {stages.map((stage, index) => {
             const categoryColor = stage.category ? getCategoryColor(stage.category) : ''
             const prevStage = index > 0 ? stages[index - 1] : null
             const showCategorySeparator = prevStage && prevStage.category !== stage.category
-            
+
             return (
-              <div key={stage.id} className="flex items-center flex-shrink-0">
+              <div key={stage.id} className="flex items-center flex-shrink-0 flex-col sm:flex-row">
                 {showCategorySeparator && (
-                  <div className="mx-4 flex flex-col items-center">
-                    <div className="w-px h-12 bg-devops-light-gray"></div>
-                    <span className="text-xs text-gray-500 mt-2 whitespace-nowrap">
-                      {stage.category}
-                    </span>
+                  <div className="mx-4 flex flex-col items-center sm:items-center">
+                    <div className="w-px h-12 bg-devops-light-gray hidden sm:block"></div>
+                    <div className="h-6 w-px bg-devops-light-gray sm:hidden my-2"></div>
+                    <span className="text-xs text-gray-500 mt-2 whitespace-nowrap">{stage.category}</span>
                   </div>
                 )}
                 <div
                   onClick={() => onStageClick(stage)}
-                  className={`pipeline-card ${
-                    selectedStage?.id === stage.id ? 'active' : ''
-                  } ${getStatusClass(stage.id)}`}
+                  className={`pipeline-card ${selectedStage?.id === stage.id ? 'active' : ''
+                    } ${getStatusClass(stage.id)}`}
                   style={{ minWidth: '160px', maxWidth: '160px' }}
                 >
                   <div className="text-center">
@@ -100,20 +97,27 @@ function PipelineView({ stages, selectedStage, onStageClick, pipelineStatus, onS
                 </div>
                 {index < stages.length - 1 && (
                   <div className="mx-1 flex items-center">
-                    <svg
-                      className={`w-8 h-1 ${
-                        pipelineStatus[stage.id] === 'success'
-                          ? 'text-devops-green'
-                          : pipelineStatus[stage.id] === 'failed'
+                    {/* Horizontal arrow on sm+, vertical arrow on mobile */}
+                    <svg className={`w-8 h-1 hidden sm:block ${pipelineStatus[stage.id] === 'success'
+                        ? 'text-devops-green'
+                        : pipelineStatus[stage.id] === 'failed'
                           ? 'text-devops-red'
                           : pipelineStatus[stage.id] === 'pending'
-                          ? 'text-devops-yellow'
-                          : 'text-devops-light-gray'
-                      }`}
-                      fill="currentColor"
-                      viewBox="0 0 100 10"
-                    >
+                            ? 'text-devops-yellow'
+                            : 'text-devops-light-gray'
+                      }`} fill="currentColor" viewBox="0 0 100 10">
                       <polygon points="0,5 100,5 95,0 100,5 95,10" />
+                    </svg>
+
+                    <svg className={`w-1 h-8 block sm:hidden ${pipelineStatus[stage.id] === 'success'
+                        ? 'text-devops-green'
+                        : pipelineStatus[stage.id] === 'failed'
+                          ? 'text-devops-red'
+                          : pipelineStatus[stage.id] === 'pending'
+                            ? 'text-devops-yellow'
+                            : 'text-devops-light-gray'
+                      }`} fill="currentColor" viewBox="0 0 10 100">
+                      <polygon points="5,0 5,100 0,95 5,100 10,95" />
                     </svg>
                   </div>
                 )}
